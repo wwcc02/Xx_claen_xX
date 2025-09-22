@@ -16,12 +16,13 @@ claen 是多聲系創作者，擅長原創與二創、插畫、寫作、配音�
 歡迎非商業使用與分享，請務必標註 claen 為原作者。
 
 ## 📎 社群連結
-- [Twitter](https://twitter.com/你的帳號)
-- [Pixiv](https://www.pixiv.net/users/你的ID)
-- [YouTube](https://www.youtube.com/@你的頻道)
+- [Twitter](https://twitter.com/Xx_claen_xX)
+- [Pixiv](https://www.pixiv.net/users/19211895)
+- [YouTube](https://www.youtube.com/Xx_claen_xX)
 - 更多連結請見主頁模組
 
 ---
 
 > 每一段程式碼都是一枚徽章，每一個角色都是一種聲音。  
+
 > claen 的網站不只是展示，而是儀式的延續。
