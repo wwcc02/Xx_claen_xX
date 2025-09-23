@@ -29,17 +29,6 @@
       color: #f4f4f4;
       padding: 0 20px;
     }
-    .link-label {
-      color: #f4f4f4;
-      margin-top: 10px;
-      margin-bottom: 2px;
-    }
-    .link-url {
-      display: block;
-      color: #b9b9b9;
-      text-decoration: none;
-      margin-bottom: 10px;
-    }
     .image-column {
       margin-top: 40px;
     }
@@ -120,6 +109,21 @@
     .controls button:hover {
       background-color: #666;
     }
+    .progress-container {
+      width: 100%;
+      height: 10px;
+      background-color: #333;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+      position: relative;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: #0f0;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -133,16 +137,15 @@
       <button onclick="togglePlay()">▶️</button>
       <button onclick="nextTrack()">⏭</button>
     </div>
+    <div class="progress-container" onclick="seek(event)">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
   </div>
 
   <div class="section">
     <p>◆ 英文讀音「克雷恩」快速糊過去就是了，但中文名實際不叫克雷恩，請還是叫我claen，或者也可以叫我銀鈴（舊中文名）。</p>
     <p>◇ 喜歡打遊戲、繪圖、寫文、唱歌、配音等等，還有一堆哩哩摳摟ㄟ東東，是個玩遊戲非常菜雞、平時喜歡做原創和二創的小小創作者兼宅宅。</p>
     <p>◆ 原創們有銀鈴（claen）、銀月（claenna）和黑鈴（kurorin），他們也同時都代表著我，我是立志成為多聲系的雙聲系創作者。</p>
-  </div>
-
-  <div class="section">
-    <!-- 社群連結模組略，已貼過 -->
   </div>
 
   <div class="image-column">
@@ -191,6 +194,7 @@
     // 銀灰 MP3 播放器模組
     const silverPlayer = document.getElementById("silverPlayer");
     const trackTitle = document.getElementById("trackTitle");
+    const progressBar = document.getElementById("progressBar");
 
     const tracks = [
       { title: "Aoki Tsuki Michite", file: "Aoki Tsuki Michite.mp3" },
@@ -234,12 +238,24 @@
       }
     }
 
-    playTrack(currentTrack);
+    silverPlayer.addEventListener("ended", () => {
+      nextTrack();
+    });
 
-    // 滑鼠移入觸發播放（非強制）
-    document.body.addEventListener("mouseenter", () => {
-      silverPlayer.play();
-    }, { once: true });
+    silverPlayer.addEventListener("timeupdate", () => {
+      const percent = (silverPlayer.currentTime / silverPlayer.duration) * 100;
+      progressBar.style.width = percent + "%";
+    });
+
+    function seek(event) {
+      const container = event.currentTarget;
+      const clickX = event.offsetX;
+      const width = container.offsetWidth;
+      const percent = clickX / width;
+      silverPlayer.currentTime = percent * silverPlayer.duration;
+    }
+
+    playTrack(currentTrack);
   </script>
-  </body>
+</body>
 </html>
