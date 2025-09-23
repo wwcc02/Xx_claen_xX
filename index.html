@@ -23,12 +23,30 @@
         padding: 20px 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.4);
       }
-      .audio-player {
-        text-align: center;
+      .intro-player {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2rem;
+        margin: 30px auto;
+        max-width: 1000px;
+        padding: 0 20px;
+      }
+      .intro-text {
+        flex: 1 1 300px;
+        color: #f4f4f4;
+        line-height: 1.8;
+      }
+      .player-box {
+        flex: 1 1 300px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 12px;
+        background-color: #2a2a2a;
         padding: 20px;
         color: #f4f4f4;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-        background-color: #2a2a2a;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
       }
       .now-playing {
         font-size: 16px;
@@ -70,15 +88,17 @@
   <body>
     <header>Xx_claen_XX</header>
 
-    <div class="section">
-      <div class="audio-player">
+    <div class="intro-player">
+      <div class="intro-text">
+        <p>◆ 英文讀音「克雷恩」快速糊過去就是了，但中文名實際不叫克雷恩，請還是叫我claen，或者也可以叫我銀鈴（舊中文名）。</p>
+        <p>◇ 喜歡打遊戲、繪圖、寫文、唱歌、配音等等，還有一堆哩哩摳摳ㄟ東東，是個玩遊戲非常菜雞、平時喜歡做原創和二創的小小創作者兼宅宅。</p>
+        <p>◆ 原創們有銀鈴（claen）、銀月（claenna）和黑鈴（kurorin），他們也同時都代表著我，我是立志成為多聲系的雙聲系創作者。</p>
+      </div>
+
+      <div class="player-box">
         <div class="now-playing" id="nowPlaying">正在播放：—</div>
         <audio id="music" controls></audio>
       </div>
-
-      <p>◆ 英文讀音「克雷恩」快速糊過去就是了，但中文名實際不叫克雷恩，請還是叫我claen，或者也可以叫我銀鈴（舊中文名）。</p>
-      <p>◇ 喜歡打遊戲、繪圖、寫文、唱歌、配音等等，還有一堆哩哩摳摳ㄟ東東，是個玩遊戲非常菜雞、平時喜歡做原創和二創的小小創作者兼宅宅。</p>
-      <p>◆ 原創們有銀鈴（claen）、銀月（claenna）和黑鈴（kurorin），他們也同時都代表著我，我是立志成為多聲系的雙聲系創作者。</p>
     </div>
 
     <div class="section">
