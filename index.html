@@ -4,6 +4,30 @@
   <meta charset="UTF-8" />
   <title>Xx_claen_xX</title>
   <style>
+
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 3s infinite ease-in-out;
+}
+#starfield {
+  position: fixed;          /* ✅ 固定在視窗上，不隨滾動 */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;              /* ✅ 放在最底層，不擋住內容 */
+  pointer-events: none;     /* ✅ 不攔截滑鼠互動 */
+  overflow: hidden;         /* ✅ 防止星星溢出 */
+  background: transparent;  /* ✅ 或你原本的背景色 */
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
     body {
       font-family: sans-serif;
       background: #1c1c1c;
@@ -11,6 +35,7 @@
       padding: 0;
       line-height: 1.6;
       text-align: center;
+      cursor: none;
     }
     header {
       position: sticky;
@@ -173,9 +198,46 @@
       color: #000;
       font-weight: bold;
     }
+#custom-cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+#custom-cursor::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 6px white;
+}
+#mouse-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9997;
+  pointer-events: none; /* ✅ 這行是關鍵：讓它不攔截點擊 */
+  background: transparent;
+  cursor: none;
+}
+* {
+  cursor: none !important;
+}
   </style>
 </head>
 <body>
+  <div id="mouse-layer"></div>
+  <div class="starfield" id="starfield"></div>
+  <div id="custom-cursor"></div>
+
   <header>Xx_claen_xX</header>
 
   <div class="mp3-player">
@@ -376,6 +438,87 @@
     }
 
     playTrack(currentTrack);
+
+// 十字星背景生成
+const starfield = document.getElementById("starfield");
+const starCount = 80;
+
+for (let i = 0; i < starCount; i++) {
+  const star = document.createElement("div");
+  star.className = "star";
+
+  const size = Math.random() * 6 + 4;
+  star.style.width = `${size}px`;
+  star.style.height = `${size}px`;
+
+  star.style.boxShadow = `
+    0 0 ${size}px white,
+    0 ${size / 2}px ${size / 2}px white,
+    0 -${size / 2}px ${size / 2}px white,
+    ${size / 2}px 0 ${size / 2}px white,
+    -${size / 2}px 0 ${size / 2}px white
+  `;
+
+  // ✅ 改用像素定位，讓星星平均分布整個畫面
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  star.style.left = `${Math.random() * viewportWidth}px`;
+  star.style.top = `${Math.random() * viewportHeight}px`;
+
+  star.style.position = "absolute";
+  star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+
+  starfield.appendChild(star);
+}
+
+// 滑鼠圖標 + 雪點飄落模組
+const cursor = document.getElementById("custom-cursor");
+let lastX = 0;
+let lastY = 0;
+
+// ✅ 滑鼠移動時更新位置並飄雪
+document.addEventListener("mousemove", e => {
+  lastX = e.clientX;
+  lastY = e.clientY;
+  triggerSnow(lastX, lastY);
+});
+
+// ✅ 每 0.3 秒自動飄雪（即使瀏覽器偷懶）
+setInterval(() => {
+  triggerSnow(lastX, lastY);
+}, 10);
+
+// ✅ 飄雪函式（共用）
+const cursorSize = 12; // ✅ 要跟 CSS 裡的寬高一致
+
+function triggerSnow(x, y) {
+  cursor.style.left = `${x - cursorSize / 2}px`;
+  cursor.style.top = `${y - cursorSize / 2}px`;
+
+  const snow = document.createElement("div");
+  const size = Math.random() * 4 + 2;
+  snow.style.position = "fixed";
+  snow.style.left = `${x - size / 2}px`;
+  snow.style.top = `${y - size / 2}px`;
+  snow.style.width = `${size}px`;
+  snow.style.height = `${size}px`;
+  snow.style.borderRadius = "50%";
+  snow.style.background = "white";
+  snow.style.opacity = Math.random() * 0.5 + 0.5;
+  snow.style.zIndex = "9998";
+  snow.style.pointerEvents = "none";
+  snow.style.transition = "transform 1s ease-out, opacity 1s ease-out";
+
+  const offsetX = (Math.random() - 0.5) * 30;
+  const offsetY = Math.random() * 60 + 20;
+  requestAnimationFrame(() => {
+    snow.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    snow.style.opacity = "0";
+  });
+
+  document.body.appendChild(snow);
+  setTimeout(() => snow.remove(), 1000);
+}
   </script>
 </body>
 </html>
