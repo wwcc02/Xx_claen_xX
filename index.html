@@ -29,6 +29,17 @@
       color: #f4f4f4;
       padding: 0 20px;
     }
+    .link-label {
+      color: #f4f4f4;
+      margin-top: 10px;
+      margin-bottom: 2px;
+    }
+    .link-url {
+      display: block;
+      color: #c7c7c7;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
     .image-column {
       margin-top: 40px;
     }
@@ -124,6 +135,44 @@
       background-color: #0f0;
       border-radius: 5px;
     }
+    .playlist-controls {
+      margin-top: 15px;
+    }
+    .playlist-controls button {
+      background-color: #555;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      margin: 0 5px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .playlist-controls button:hover {
+      background-color: #777;
+    }
+    .playlist {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
+      text-align: left;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .playlist li {
+      padding: 6px 10px;
+      color: #eee;
+      cursor: pointer;
+      border-bottom: 1px solid #444;
+    }
+    .playlist li:hover {
+      background-color: #333;
+    }
+    .playlist li.active {
+      background-color: #0f0;
+      color: #000;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -140,6 +189,11 @@
     <div class="progress-container" onclick="seek(event)">
       <div class="progress-bar" id="progressBar"></div>
     </div>
+    <div class="playlist-controls">
+      <button onclick="toggleLoop()">🔁 循環</button>
+      <button onclick="toggleShuffle()">🔀 隨機</button>
+    </div>
+    <ul class="playlist" id="playlist"></ul>
   </div>
 
   <div class="section">
@@ -176,7 +230,6 @@
     <p class="link-label">痞客邦</p>
     <a class="link-url" href="https://www.pixnet.net/pcard/z710601z">https://www.pixnet.net/pcard/z710601z</a>
   </div>
-
 
   <div class="image-column">
     <img src="銀鈴立繪.png" alt="claen 人設立繪">
@@ -225,6 +278,7 @@
     const silverPlayer = document.getElementById("silverPlayer");
     const trackTitle = document.getElementById("trackTitle");
     const progressBar = document.getElementById("progressBar");
+    const playlistElement = document.getElementById("playlist");
 
     const tracks = [
       { title: "Aoki Tsuki Michite", file: "Aoki Tsuki Michite.mp3" },
@@ -242,12 +296,23 @@
     ];
 
     let currentTrack = 11; // 預設播放 Unravel
+    let isLooping = false;
+    let isShuffling = false;
+
+    function toggleLoop() {
+      isLooping = !isLooping;
+    }
+
+    function toggleShuffle() {
+      isShuffling = !isShuffling;
+    }
 
     function playTrack(index) {
       const track = tracks[index];
       silverPlayer.src = track.file;
       trackTitle.textContent = track.title;
       silverPlayer.play();
+      updatePlaylistUI();
     }
 
     function prevTrack() {
@@ -256,7 +321,15 @@
     }
 
     function nextTrack() {
-      currentTrack = (currentTrack + 1) % tracks.length;
+      if (isShuffling) {
+        let next = Math.floor(Math.random() * tracks.length);
+        while (next === currentTrack) {
+          next = Math.floor(Math.random() * tracks.length);
+        }
+        currentTrack = next;
+      } else {
+        currentTrack = (currentTrack + 1) % tracks.length;
+      }
       playTrack(currentTrack);
     }
 
@@ -269,7 +342,11 @@
     }
 
     silverPlayer.addEventListener("ended", () => {
-      nextTrack();
+      if (isLooping) {
+        playTrack(currentTrack);
+      } else {
+        nextTrack();
+      }
     });
 
     silverPlayer.addEventListener("timeupdate", () => {
@@ -283,6 +360,24 @@
       const width = container.offsetWidth;
       const percent = clickX / width;
       silverPlayer.currentTime = percent * silverPlayer.duration;
+    }
+
+    // 播放清單 UI
+    tracks.forEach((track, index) => {
+      const li = document.createElement("li");
+      li.textContent = track.title;
+      li.onclick = () => {
+        currentTrack = index;
+        playTrack(currentTrack);
+      };
+      playlistElement.appendChild(li);
+    });
+
+    function updatePlaylistUI() {
+      const items = playlistElement.querySelectorAll("li");
+      items.forEach((item, index) => {
+        item.classList.toggle("active", index === currentTrack);
+      });
     }
 
     playTrack(currentTrack);
