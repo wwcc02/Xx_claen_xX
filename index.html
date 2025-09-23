@@ -88,13 +88,13 @@
       background-color: #666;
     }
     .mp3-player {
-      background: linear-gradient(145deg, #d0d0d0, #888);
-      border: 2px solid #444;
+      background: linear-gradient(145deg, #000, #fff);
+      border: 2px solid #888;
       border-radius: 20px;
       padding: 20px;
       max-width: 300px;
       margin: 40px auto;
-      box-shadow: inset 0 0 10px #333;
+      box-shadow: inset 0 0 10px #222;
       text-align: center;
     }
     .lcd-screen {
@@ -254,27 +254,22 @@
       "9.png", "10.png", "11.png", "12.png",
       "13.png", "14.png", "15.jpg", "16.png"
     ];
-
     let currentArt = 0;
     const artImage = document.getElementById("artImage");
-
     function showArt(index) {
       artImage.src = artImages[index];
     }
-
     function prevArt() {
       currentArt = (currentArt - 1 + artImages.length) % artImages.length;
       showArt(currentArt);
     }
-
     function nextArt() {
       currentArt = (currentArt + 1) % artImages.length;
       showArt(currentArt);
     }
-
     showArt(currentArt);
 
-    // 銀灰 MP3 播放器模組
+    // MP3 播放器模組
     const silverPlayer = document.getElementById("silverPlayer");
     const trackTitle = document.getElementById("trackTitle");
     const progressBar = document.getElementById("progressBar");
@@ -295,14 +290,13 @@
       { title: "Unravel", file: "Unravel.mp3" }
     ];
 
-    let currentTrack = 11; // 預設播放 Unravel
+    let currentTrack = 11;
     let isLooping = false;
     let isShuffling = false;
 
     function toggleLoop() {
       isLooping = !isLooping;
     }
-
     function toggleShuffle() {
       isShuffling = !isShuffling;
     }
