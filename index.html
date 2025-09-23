@@ -165,17 +165,5 @@
         playTrack(currentTrack);
       });
     </script>
-<audio id="bgm" src="your-audio.mp3" preload="auto"></audio>
-<script>
-  const audio = document.getElementById('bgm');
-  let hasPlayed = false;
-
-  document.body.addEventListener('mouseenter', () => {
-    if (!hasPlayed) {
-      audio.play().catch(() => {});
-      hasPlayed = true;
-    }
-  });
-</script>
   </body>
 </html>
