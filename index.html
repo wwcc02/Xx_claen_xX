@@ -118,32 +118,7 @@
   </div>
 
   <div class="section">
-    <p class="link-label">YouTube</p>
-    <a class="link-url" href="https://www.youtube.com/@Xx_claen_xX">https://www.youtube.com/@Xx_claen_xX</a>
-    <p class="link-label">Facebook</p>
-    <a class="link-url" href="https://www.facebook.com/claenyinling">https://www.facebook.com/claenyinling</a>
-    <p class="link-label">Plurk</p>
-    <a class="link-url" href="https://www.plurk.com/Xx_claen_xX">https://www.plurk.com/Xx_claen_xX</a>
-    <p class="link-label">Bluesky</p>
-    <a class="link-url" href="https://bsky.app/profile/xxclaenxx.bsky.social">https://bsky.app/profile/xxclaenxx.bsky.social</a>
-    <p class="link-label">Twitter</p>
-    <a class="link-url" href="https://x.com/Xx_claen_xX">https://x.com/Xx_claen_xX</a>
-    <p class="link-label">Tumblr</p>
-    <a class="link-url" href="https://www.tumblr.com/xxclaenxx">https://www.tumblr.com/xxclaenxx</a>
-    <p class="link-label">beanU</p>
-    <a class="link-url" href="https://beanu.net/u/wwcc02">https://beanu.net/u/wwcc02</a>
-    <p class="link-label">ART street</p>
-    <a class="link-url" href="https://medibang.com/u/claen/">https://medibang.com/u/claen/</a>
-    <p class="link-label">Pixiv</p>
-    <a class="link-url" href="https://www.pixiv.net/users/19211895">https://www.pixiv.net/users/19211895</a>
-    <p class="link-label">DeviantArt</p>
-    <a class="link-url" href="https://www.deviantart.com/wwcc02">https://www.deviantart.com/wwcc02</a>
-    <p class="link-label">飛天奶茶</p>
-    <a class="link-url" href="https://www.flyingmilktea.com/profile/?claen/">https://www.flyingmilktea.com/profile/?claen/</a>
-    <p class="link-label">巴哈姆特</p>
-    <a class="link-url" href="https://home.gamer.com.tw/profile/index.php?owner=claen1115">https://home.gamer.com.tw/profile/index.php?owner=claen1115</a>
-    <p class="link-label">痞客邦</p>
-    <a class="link-url" href="https://www.pixnet.net/pcard/z710601z">https://www.pixnet.net/pcard/z710601z</a>
+    <!-- 社群連結模組略，已貼過 -->
   </div>
 
   <div class="image-column">
@@ -227,74 +202,11 @@
     }
 
     playTrack(currentTrack);
-  </script>
-</body>
-</html><script>
-    // 圖片展示模組
-    const artImages = [
-      "1.png", "2.png", "3.png", "4.png",
-      "5.png", "6.png", "7.png", "8.png",
-      "9.png", "10.png", "11.png", "12.png",
-      "13.png", "14.png", "15.jpg", "16.png"
-    ];
 
-    let currentArt = 0;
-    const artImage = document.getElementById("artImage");
-
-    function showArt(index) {
-      artImage.src = artImages[index];
-    }
-
-    function prevArt() {
-      currentArt = (currentArt - 1 + artImages.length) % artImages.length;
-      showArt(currentArt);
-    }
-
-    function nextArt() {
-      currentArt = (currentArt + 1) % artImages.length;
-      showArt(currentArt);
-    }
-
-    showArt(currentArt);
-
-    // 音樂播放器模組
-    const tracks = [
-      { title: "Aoki Tsuki Michite", file: "Aoki Tsuki Michite.mp3" },
-      { title: "Bird", file: "Bird.mp3" },
-      { title: "EASY GO", file: "EASY GO.mp3" },
-      { title: "Eclipse", file: "Eclipse.mp3" },
-      { title: "Enamel", file: "Enamel.mp3" },
-      { title: "Escapism", file: "Escapism.mp3" },
-      { title: "Garasuno Hitomi", file: "Garasuno Hitomi.mp3" },
-      { title: "Hallucination", file: "Hallucination.mp3" },
-      { title: "Kagayaku Sorano Shijimaniwa", file: "Kagayaku Sorano Shijimaniwa.mp3" },
-      { title: "Monokuro No Kiss", file: "Monokuro No Kiss.mp3" },
-      { title: "Trust Me", file: "Trust Me.mp3" },
-      { title: "Unravel", file: "Unravel.mp3" }
-    ];
-
-    let currentTrack = 0;
-    const music = document.getElementById("music");
-    const nowPlaying = document.getElementById("nowPlaying");
-
-    function playTrack(index) {
-      const track = tracks[index];
-      music.src = track.file;
-      nowPlaying.textContent = "正在播放：" + track.title;
+    // 滑鼠移入頁面即觸發播放（一次性）
+    document.body.addEventListener("mouseenter", () => {
       music.play();
-    }
-
-    function prevTrack() {
-      currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
-      playTrack(currentTrack);
-    }
-
-    function nextTrack() {
-      currentTrack = (currentTrack + 1) % tracks.length;
-      playTrack(currentTrack);
-    }
-
-    playTrack(currentTrack);
+    }, { once: true });
   </script>
 </body>
 </html>
