@@ -172,3 +172,44 @@
       "Hallucination.mp3",
       "Kagayaku Sorano Shijimaniwa.mp3",
       "Mon
+<script>
+  const artImages = [
+    "art/1.png",
+    "art/2.png",
+    "art/3.png",
+    "art/4.png",
+    "art/5.png",
+    "art/6.png",
+    "art/7.png",
+    "art/8.png",
+    "art/9.png",
+    "art/10.png",
+    "art/11.png",
+    "art/12.png",
+    "art/13.png",
+    "art/14.png",
+    "art/15.jpg",  // 唯一的 jpg
+    "art/16.png"
+  ];
+
+  let currentArt = 0;
+  const artImage = document.getElementById("artImage");
+
+  function showArt(index) {
+    artImage.src = artImages[index];
+  }
+
+  function prevArt() {
+    currentArt = (currentArt - 1 + artImages.length) % artImages.length;
+    showArt(currentArt);
+  }
+
+  function nextArt() {
+    currentArt = (currentArt + 1) % artImages.length;
+    showArt(currentArt);
+  }
+
+  // 初始化顯示第一張
+  showArt(currentArt);
+</script>
+</body>
