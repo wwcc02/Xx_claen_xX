@@ -1,185 +1,174 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Xx_claen_XX</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        background: #1c1c1c;
-        margin: 0;
-        padding: 0;
-        line-height: 1.6;
-      }
-      header {
-        position: sticky;
-        top: 0;
-        background: #1c1c1c;
-        z-index: 1000;
-        text-align: center;
-        font-size: 40pt;
-        font-weight: bold;
-        color: #f4f4f4;
-        padding: 20px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-      }
-      .audio-player {
-        text-align: center;
-        padding: 20px;
-        color: #f4f4f4;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-        background-color: #2a2a2a;
-      }
-      .now-playing {
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
-      .section {
-        margin: 30px auto;
-        max-width: 800px;
-        text-align: center;
-        color: #f4f4f4;
-        padding: 0 20px;
-      }
-      .link-label {
-        color: #f4f4f4;
-        margin-top: 10px;
-        margin-bottom: 2px;
-      }
-      .link-url {
-        display: block;
-        color: #b9b9b9;
-        text-decoration: none;
-        margin-bottom: 10px;
-      }
-      .image-column {
-        text-align: center;
-        margin-top: 40px;
-      }
-      .image-column img {
-        width: 250px;
-        height: auto;
-      }
-      .caption {
-        margin-top: 10px;
-        font-size: 14px;
-        color: #f4f4f4;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <title>Xx_claen_XX</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #1c1c1c;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      text-align: center;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: #1c1c1c;
+      z-index: 1000;
+      font-size: 40pt;
+      font-weight: bold;
+      color: #f4f4f4;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .audio-player {
+      padding: 20px;
+      color: #f4f4f4;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      background-color: #2a2a2a;
+    }
+    .now-playing {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    .section {
+      margin: 30px auto;
+      max-width: 800px;
+      color: #f4f4f4;
+      padding: 0 20px;
+    }
+    .link-label {
+      color: #f4f4f4;
+      margin-top: 10px;
+      margin-bottom: 2px;
+    }
+    .link-url {
+      display: block;
+      color: #b9b9b9;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+    .image-column {
+      margin-top: 40px;
+    }
+    .image-column img {
+      width: 250px;
+      height: auto;
+    }
+    .caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #f4f4f4;
+    }
 
-      /* claen's art 模組 */
-      .art-gallery {
-        margin: 60px auto;
-        max-width: 600px;
-        text-align: center;
-        color: #f4f4f4;
-      }
-      .art-gallery h2 {
-        font-size: 24px;
-        margin-bottom: 20px;
-      }
-      .art-frame {
-        position: relative;
-      }
-      .art-frame img {
-        width: 100%;
-        max-height: 400px;
-        object-fit: contain;
-        border: 2px solid rgba(255,255,255,0.3);
-        border-radius: 8px;
-      }
-      .art-nav {
-        margin-top: 10px;
-      }
-      .art-nav button {
-        background-color: #444;
-        color: #f4f4f4;
-        border: none;
-        padding: 10px 20px;
-        margin: 0 10px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 6px;
-      }
-      .art-nav button:hover {
-        background-color: #666;
-      }
-    </style>
-  </head>
-  <body>
-    <header>Xx_claen_XX</header>
+    /* claen's art 模組 */
+    .art-gallery {
+      margin: 60px auto;
+      max-width: 600px;
+      color: #f4f4f4;
+    }
+    .art-gallery h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .art-frame {
+      position: relative;
+    }
+    .art-frame img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+    }
+    .art-nav {
+      margin-top: 10px;
+    }
+    .art-nav button {
+      background-color: #444;
+      color: #f4f4f4;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .art-nav button:hover {
+      background-color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>Xx_claen_XX</header>
 
-    <div class="section">
-      <div class="audio-player">
-        <div class="now-playing" id="nowPlaying">正在播放：—</div>
-        <audio id="music" controls></audio>
-      </div>
-
-      <p>◆ 英文讀音「克雷恩」快速糊過去就是了，但中文名實際不叫克雷恩，請還是叫我claen，或者也可以叫我銀鈴（舊中文名）。</p>
-      <p>◇ 喜歡打遊戲、繪圖、寫文、唱歌、配音等等，還有一堆哩哩摳摟ㄟ東東，是個玩遊戲非常菜雞、平時喜歡做原創和二創的小小創作者兼宅宅。</p>
-      <p>◆ 原創們有銀鈴（claen）、銀月（claenna）和黑鈴（kurorin），他們也同時都代表著我，我是立志成為多聲系的雙聲系創作者。</p>
+  <div class="section">
+    <div class="audio-player">
+      <div class="now-playing" id="nowPlaying">正在播放：—</div>
+      <audio id="music" controls></audio>
     </div>
 
-    <div class="section">
-      <!-- 所有連結區塊照舊 -->
-      <p class="link-label">YouTube</p>
-      <a class="link-url" href="https://www.youtube.com/@Xx_claen_xX">https://www.youtube.com/@Xx_claen_xX</a>
-      <p class="link-label">Facebook</p>
-      <a class="link-url" href="https://www.facebook.com/claenyinling">https://www.facebook.com/claenyinling</a>
-      <p class="link-label">Plurk</p>
-      <a class="link-url" href="https://www.plurk.com/Xx_claen_xX">https://www.plurk.com/Xx_claen_xX</a>
-      <p class="link-label">Bluesky</p>
-      <a class="link-url" href="https://bsky.app/profile/xxclaenxx.bsky.social">https://bsky.app/profile/xxclaenxx.bsky.social</a>
-      <p class="link-label">Twitter</p>
-      <a class="link-url" href="https://x.com/Xx_claen_xX">https://x.com/Xx_claen_xX</a>
-      <p class="link-label">Tumblr</p>
-      <a class="link-url" href="https://www.tumblr.com/xxclaenxx">https://www.tumblr.com/xxclaenxx</a>
-      <p class="link-label">beanU</p>
-      <a class="link-url" href="https://beanu.net/u/wwcc02">https://beanu.net/u/wwcc02</a>
-      <p class="link-label">ART street</p>
-      <a class="link-url" href="https://medibang.com/u/claen/">https://medibang.com/u/claen/</a>
-      <p class="link-label">Pixiv</p>
-      <a class="link-url" href="https://www.pixiv.net/users/19211895">https://www.pixiv.net/users/19211895</a>
-      <p class="link-label">DeviantArt</p>
-      <a class="link-url" href="https://www.deviantart.com/wwcc02">https://www.deviantart.com/wwcc02</a>
-      <p class="link-label">飛天奶茶</p>
-      <a class="link-url" href="https://www.flyingmilktea.com/profile/?claen/">https://www.flyingmilktea.com/profile/?claen/</a>
-      <p class="link-label">巴哈姆特</p>
-      <a class="link-url" href="https://home.gamer.com.tw/profile/index.php?owner=claen1115">https://home.gamer.com.tw/profile/index.php?owner=claen1115</a>
-      <p class="link-label">痞客邦</p>
-      <a class="link-url" href="https://www.pixnet.net/pcard/z710601z">https://www.pixnet.net/pcard/z710601z</a>
+    <p>◆ 英文讀音「克雷恩」快速糊過去就是了，但中文名實際不叫克雷恩，請還是叫我claen，或者也可以叫我銀鈴（舊中文名）。</p>
+    <p>◇ 喜歡打遊戲、繪圖、寫文、唱歌、配音等等，還有一堆哩哩摳摟ㄟ東東，是個玩遊戲非常菜雞、平時喜歡做原創和二創的小小創作者兼宅宅。</p>
+    <p>◆ 原創們有銀鈴（claen）、銀月（claenna）和黑鈴（kurorin），他們也同時都代表著我，我是立志成為多聲系的雙聲系創作者。</p>
+  </div>
+
+  <div class="section">
+    <p class="link-label">YouTube</p>
+    <a class="link-url" href="https://www.youtube.com/@Xx_claen_xX">https://www.youtube.com/@Xx_claen_xX</a>
+    <p class="link-label">Facebook</p>
+    <a class="link-url" href="https://www.facebook.com/claenyinling">https://www.facebook.com/claenyinling</a>
+    <p class="link-label">Plurk</p>
+    <a class="link-url" href="https://www.plurk.com/Xx_claen_xX">https://www.plurk.com/Xx_claen_xX</a>
+    <p class="link-label">Bluesky</p>
+    <a class="link-url" href="https://bsky.app/profile/xxclaenxx.bsky.social">https://bsky.app/profile/xxclaenxx.bsky.social</a>
+    <p class="link-label">Twitter</p>
+    <a class="link-url" href="https://x.com/Xx_claen_xX">https://x.com/Xx_claen_xX</a>
+    <p class="link-label">Tumblr</p>
+    <a class="link-url" href="https://www.tumblr.com/xxclaenxx">https://www.tumblr.com/xxclaenxx</a>
+    <p class="link-label">beanU</p>
+    <a class="link-url" href="https://beanu.net/u/wwcc02">https://beanu.net/u/wwcc02</a>
+    <p class="link-label">ART street</p>
+    <a class="link-url" href="https://medibang.com/u/claen/">https://medibang.com/u/claen/</a>
+    <p class="link-label">Pixiv</p>
+    <a class="link-url" href="https://www.pixiv.net/users/19211895">https://www.pixiv.net/users/19211895</a>
+    <p class="link-label">DeviantArt</p>
+    <a class="link-url" href="https://www.deviantart.com/wwcc02">https://www.deviantart.com/wwcc02</a>
+    <p class="link-label">飛天奶茶</p>
+    <a class="link-url" href="https://www.flyingmilktea.com/profile/?claen/">https://www.flyingmilktea.com/profile/?claen/</a>
+    <p class="link-label">巴哈姆特</p>
+    <a class="link-url" href="https://home.gamer.com.tw/profile/index.php?owner=claen1115">https://home.gamer.com.tw/profile/index.php?owner=claen1115</a>
+    <p class="link-label">痞客邦</p>
+    <a class="link-url" href="https://www.pixnet.net/pcard/z710601z">https://www.pixnet.net/pcard/z710601z</a>
+  </div>
+
+  <div class="image-column">
+    <img src="銀鈴立繪.png" alt="claen 人設立繪">
+    <div class="caption">claen立繪 By claen</div>
+  </div>
+
+  <div class="art-gallery">
+    <h2>claen's art</h2>
+    <div class="art-frame">
+      <img id="artImage" src="art/1.png" alt="claen's artwork">
     </div>
-
-    <div class="image-column">
-      <img src="銀鈴立繪.png" alt="claen 人設立繪">
-      <div class="caption">claen立繪 By claen</div>
+    <div class="art-nav">
+      <button onclick="prevArt()">上一張</button>
+      <button onclick="nextArt()">下一張</button>
     </div>
+  </div>
 
-    <!-- claen's art 圖片展示模組 -->
-    <div class="art-gallery">
-      <h2>claen's art</h2>
-      <div class="art-frame">
-        <img id="artImage" src="art/1.png" alt="claen's artwork">
-      </div>
-      <div class="art-nav">
-        <button onclick="prevArt()">上一張</button>
-        <button onclick="nextArt()">下一張</button>
-      </div>
-    </div>
-
-    <script>
-      const playlist = [
-        "Aoki Tsuki Michite.mp3",
-        "Bird.mp3",
-        "EASY GO.mp3",
-        "Eclipse.mp3",
-        "Enamel.mp3",
-        "Escapism.mp3",
-        "Garasuno Hitomi.mp3",
-        "Hallucination.mp3",
-        "Kagayaku Sorano Shijimaniwa.mp3",
-        "Monokuro No Kiss.mp3",
-        "Trust Me.mp3",
-        "Unravel.mp3"
-      ];
-
-      let current
+  <script>
+    const playlist = [
+      "Aoki Tsuki Michite.mp3",
+      "Bird.mp3",
+      "EASY GO.mp3",
+      "Eclipse.mp3",
+      "Enamel.mp3",
+      "Escapism.mp3",
+      "Garasuno Hitomi.mp3",
+      "Hallucination.mp3",
+      "Kagayaku Sorano Shijimaniwa.mp3",
+      "Mon
