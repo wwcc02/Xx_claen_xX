@@ -471,30 +471,38 @@ for (let i = 0; i < starCount; i++) {
   starfield.appendChild(star);
 }
 
-// 滑鼠圖標 + 雪點飄落模組
+const cursorSize = 12;
 const cursor = document.getElementById("custom-cursor");
-let lastX = 0;
-let lastY = 0;
 
-// ✅ 滑鼠移動時更新位置並飄雪
+let lastX = window.innerWidth / 2;
+let lastY = window.innerHeight / 2;
+let snowInterval = null;
+let stopTimer = null;
+
 document.addEventListener("mousemove", e => {
   lastX = e.clientX;
   lastY = e.clientY;
-  triggerSnow(lastX, lastY);
+
+  // ✅ 更新滑鼠位置
+  cursor.style.left = `${lastX - cursorSize / 2}px`;
+  cursor.style.top = `${lastY - cursorSize / 2}px`;
+
+  // ✅ 如果尚未啟動飄雪，啟動它
+  if (!snowInterval) {
+    snowInterval = setInterval(() => {
+      triggerSnow(lastX, lastY);
+    }, 50); // ✅ 每 0.05 秒飄雪
+  }
+
+  // ✅ 重設停止計時器（滑鼠停止後 200ms 停止飄雪）
+  clearTimeout(stopTimer);
+  stopTimer = setTimeout(() => {
+    clearInterval(snowInterval);
+    snowInterval = null;
+  }, 200);
 });
 
-// ✅ 每 0.3 秒自動飄雪（即使瀏覽器偷懶）
-setInterval(() => {
-  triggerSnow(lastX, lastY);
-}, 10);
-
-// ✅ 飄雪函式（共用）
-const cursorSize = 12; // ✅ 要跟 CSS 裡的寬高一致
-
 function triggerSnow(x, y) {
-  cursor.style.left = `${x - cursorSize / 2}px`;
-  cursor.style.top = `${y - cursorSize / 2}px`;
-
   const snow = document.createElement("div");
   const size = Math.random() * 4 + 2;
   snow.style.position = "fixed";
