@@ -290,7 +290,8 @@
       { title: "Unravel", file: "Unravel.mp3" }
     ];
 
-    let currentTrack = 11;
+    // ✅ 每次進站隨機開頭歌曲
+    let currentTrack = Math.floor(Math.random() * tracks.length);
     let isLooping = false;
     let isShuffling = false;
 
