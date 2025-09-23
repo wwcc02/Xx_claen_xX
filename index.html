@@ -23,6 +23,16 @@
       padding: 20px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     }
+    .audio-player {
+      padding: 20px;
+      color: #f4f4f4;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      background-color: #2a2a2a;
+    }
+    .now-playing {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
     .section {
       margin: 30px auto;
       max-width: 800px;
@@ -87,51 +97,17 @@
     .art-nav button:hover {
       background-color: #666;
     }
-    .mp3-player {
-      background: linear-gradient(145deg, #d0d0d0, #888);
-      border: 2px solid #444;
-      border-radius: 20px;
-      padding: 20px;
-      max-width: 300px;
-      margin: 40px auto;
-      box-shadow: inset 0 0 10px #333;
-      text-align: center;
-    }
-    .lcd-screen {
-      background-color: #222;
-      color: #0f0;
-      font-family: 'Courier New', monospace;
-      font-size: 16px;
-      padding: 10px;
-      border-radius: 6px;
-      margin-bottom: 15px;
-      box-shadow: inset 0 0 5px #000;
-    }
-    .controls button {
-      background-color: #444;
-      color: #eee;
-      border: none;
-      padding: 10px 15px;
-      margin: 0 5px;
-      font-size: 18px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .controls button:hover {
-      background-color: #666;
-    }
   </style>
 </head>
 <body>
   <header>Xx_claen_XX</header>
 
-  <div class="mp3-player">
-    <div class="lcd-screen" id="trackTitle">Unravel</div>
-    <audio id="silverPlayer" src="Unravel.mp3"></audio>
-    <div class="controls">
-      <button onclick="prevTrack()">⏮</button>
-      <button onclick="togglePlay()">▶️</button>
-      <button onclick="nextTrack()">⏭</button>
+  <div class="audio-player">
+    <div class="now-playing" id="nowPlaying">正在播放：—</div>
+    <audio id="music" controls></audio>
+    <div style="margin-top:10px;">
+      <button onclick="prevTrack()">上一首</button>
+      <button onclick="nextTrack()">下一首</button>
     </div>
   </div>
 
@@ -160,7 +136,7 @@
       <button onclick="nextArt()">下一張</button>
     </div>
   </div>
-    <script>
+  <script>
     // 圖片展示模組
     const artImages = [
       "1.png", "2.png", "3.png", "4.png",
@@ -188,10 +164,7 @@
 
     showArt(currentArt);
 
-    // 銀灰 MP3 播放器模組
-    const silverPlayer = document.getElementById("silverPlayer");
-    const trackTitle = document.getElementById("trackTitle");
-
+    // 音樂播放器模組
     const tracks = [
       { title: "Aoki Tsuki Michite", file: "Aoki Tsuki Michite.mp3" },
       { title: "Bird", file: "Bird.mp3" },
@@ -207,13 +180,15 @@
       { title: "Unravel", file: "Unravel.mp3" }
     ];
 
-    let currentTrack = 11; // 預設播放 Unravel
+    let currentTrack = 0;
+    const music = document.getElementById("music");
+    const nowPlaying = document.getElementById("nowPlaying");
 
     function playTrack(index) {
       const track = tracks[index];
-      silverPlayer.src = track.file;
-      trackTitle.textContent = track.title;
-      silverPlayer.play();
+      music.src = track.file;
+      nowPlaying.textContent = "正在播放：" + track.title;
+      music.play();
     }
 
     function prevTrack() {
@@ -226,20 +201,12 @@
       playTrack(currentTrack);
     }
 
-    function togglePlay() {
-      if (silverPlayer.paused) {
-        silverPlayer.play();
-      } else {
-        silverPlayer.pause();
-      }
-    }
-
     playTrack(currentTrack);
 
-    // 滑鼠移入觸發播放（非強制）
+    // 滑鼠移入頁面即觸發播放（一次性）
     document.body.addEventListener("mouseenter", () => {
-      silverPlayer.play();
+      music.play();
     }, { once: true });
   </script>
-  </body>
+</body>
 </html>
