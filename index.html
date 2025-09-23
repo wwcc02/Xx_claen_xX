@@ -102,19 +102,22 @@
 <body>
   <header>Xx_claen_XX</header>
 
-  <div class="section">
-    <div class="audio-player">
-      <div class="now-playing" id="nowPlaying">正在播放：—</div>
-      <audio id="music" controls></audio>
+  <div class="audio-player">
+    <div class="now-playing" id="nowPlaying">正在播放：—</div>
+    <audio id="music" controls></audio>
+    <div style="margin-top:10px;">
+      <button onclick="prevTrack()">上一首</button>
+      <button onclick="nextTrack()">下一首</button>
     </div>
+  </div>
 
+  <div class="section">
     <p>◆ 英文讀音「克雷恩」快速糊過去就是了，但中文名實際不叫克雷恩，請還是叫我claen，或者也可以叫我銀鈴（舊中文名）。</p>
     <p>◇ 喜歡打遊戲、繪圖、寫文、唱歌、配音等等，還有一堆哩哩摳摟ㄟ東東，是個玩遊戲非常菜雞、平時喜歡做原創和二創的小小創作者兼宅宅。</p>
     <p>◆ 原創們有銀鈴（claen）、銀月（claenna）和黑鈴（kurorin），他們也同時都代表著我，我是立志成為多聲系的雙聲系創作者。</p>
   </div>
 
   <div class="section">
-    <!-- 社群連結模組 -->
     <p class="link-label">YouTube</p>
     <a class="link-url" href="https://www.youtube.com/@Xx_claen_xX">https://www.youtube.com/@Xx_claen_xX</a>
     <p class="link-label">Facebook</p>
@@ -151,40 +154,147 @@
   <div class="art-gallery">
     <h2>claen's art</h2>
     <div class="art-frame">
-      <img id="artImage" src="art/1.png" alt="claen's artwork">
+      <img id="artImage" src="1.png" alt="claen's artwork">
     </div>
     <div class="art-nav">
       <button onclick="prevArt()">上一張</button>
       <button onclick="nextArt()">下一張</button>
     </div>
   </div>
+  <script>
+    // 圖片展示模組
+    const artImages = [
+      "1.png", "2.png", "3.png", "4.png",
+      "5.png", "6.png", "7.png", "8.png",
+      "9.png", "10.png", "11.png", "12.png",
+      "13.png", "14.png", "15.jpg", "16.png"
+    ];
 
-<script>
-  const artImages = [
-    "art/1.png", "art/2.png", "art/3.png", "art/4.png",
-    "art/5.png", "art/6.png", "art/7.png", "art/8.png",
-    "art/9.png", "art/10.png", "art/11.png", "art/12.png",
-    "art/13.png", "art/14.png", "art/15.jpg", "art/16.png"
-  ];
+    let currentArt = 0;
+    const artImage = document.getElementById("artImage");
 
-  let currentArt = 0;
-  const artImage = document.getElementById("artImage");
+    function showArt(index) {
+      artImage.src = artImages[index];
+    }
 
-  function showArt(index) {
-    artImage.src = artImages[index];
-  }
+    function prevArt() {
+      currentArt = (currentArt - 1 + artImages.length) % artImages.length;
+      showArt(currentArt);
+    }
 
-  function prevArt() {
-    currentArt = (currentArt - 1 + artImages.length) % artImages.length;
+    function nextArt() {
+      currentArt = (currentArt + 1) % artImages.length;
+      showArt(currentArt);
+    }
+
     showArt(currentArt);
-  }
 
-  function nextArt() {
-    currentArt = (currentArt + 1) % artImages.length;
+    // 音樂播放器模組
+    const tracks = [
+      { title: "Aoki Tsuki Michite", file: "Aoki Tsuki Michite.mp3" },
+      { title: "Bird", file: "Bird.mp3" },
+      { title: "EASY GO", file: "EASY GO.mp3" },
+      { title: "Eclipse", file: "Eclipse.mp3" },
+      { title: "Enamel", file: "Enamel.mp3" },
+      { title: "Escapism", file: "Escapism.mp3" },
+      { title: "Garasuno Hitomi", file: "Garasuno Hitomi.mp3" },
+      { title: "Hallucination", file: "Hallucination.mp3" },
+      { title: "Kagayaku Sorano Shijimaniwa", file: "Kagayaku Sorano Shijimaniwa.mp3" },
+      { title: "Monokuro No Kiss", file: "Monokuro No Kiss.mp3" },
+      { title: "Trust Me", file: "Trust Me.mp3" },
+      { title: "Unravel", file: "Unravel.mp3" }
+    ];
+
+    let currentTrack = 0;
+    const music = document.getElementById("music");
+    const nowPlaying = document.getElementById("nowPlaying");
+
+    function playTrack(index) {
+      const track = tracks[index];
+      music.src = track.file;
+      nowPlaying.textContent = "正在播放：" + track.title;
+      music.play();
+    }
+
+    function prevTrack() {
+      currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+      playTrack(currentTrack);
+    }
+
+    function nextTrack() {
+      currentTrack = (currentTrack + 1) % tracks.length;
+      playTrack(currentTrack);
+    }
+
+    playTrack(currentTrack);
+  </script>
+</body>
+</html><script>
+    // 圖片展示模組
+    const artImages = [
+      "1.png", "2.png", "3.png", "4.png",
+      "5.png", "6.png", "7.png", "8.png",
+      "9.png", "10.png", "11.png", "12.png",
+      "13.png", "14.png", "15.jpg", "16.png"
+    ];
+
+    let currentArt = 0;
+    const artImage = document.getElementById("artImage");
+
+    function showArt(index) {
+      artImage.src = artImages[index];
+    }
+
+    function prevArt() {
+      currentArt = (currentArt - 1 + artImages.length) % artImages.length;
+      showArt(currentArt);
+    }
+
+    function nextArt() {
+      currentArt = (currentArt + 1) % artImages.length;
+      showArt(currentArt);
+    }
+
     showArt(currentArt);
-  }
 
-  showArt(currentArt);
-</script>
+    // 音樂播放器模組
+    const tracks = [
+      { title: "Aoki Tsuki Michite", file: "Aoki Tsuki Michite.mp3" },
+      { title: "Bird", file: "Bird.mp3" },
+      { title: "EASY GO", file: "EASY GO.mp3" },
+      { title: "Eclipse", file: "Eclipse.mp3" },
+      { title: "Enamel", file: "Enamel.mp3" },
+      { title: "Escapism", file: "Escapism.mp3" },
+      { title: "Garasuno Hitomi", file: "Garasuno Hitomi.mp3" },
+      { title: "Hallucination", file: "Hallucination.mp3" },
+      { title: "Kagayaku Sorano Shijimaniwa", file: "Kagayaku Sorano Shijimaniwa.mp3" },
+      { title: "Monokuro No Kiss", file: "Monokuro No Kiss.mp3" },
+      { title: "Trust Me", file: "Trust Me.mp3" },
+      { title: "Unravel", file: "Unravel.mp3" }
+    ];
+
+    let currentTrack = 0;
+    const music = document.getElementById("music");
+    const nowPlaying = document.getElementById("nowPlaying");
+
+    function playTrack(index) {
+      const track = tracks[index];
+      music.src = track.file;
+      nowPlaying.textContent = "正在播放：" + track.title;
+      music.play();
+    }
+
+    function prevTrack() {
+      currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+      playTrack(currentTrack);
+    }
+
+    function nextTrack() {
+      currentTrack = (currentTrack + 1) % tracks.length;
+      playTrack(currentTrack);
+    }
+
+    playTrack(currentTrack);
+  </script>
 </body>
 </html>
